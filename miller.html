@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Miller & Co. | Archive Vault</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Manrope:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'void': '#050505',
+                        'charcoal': '#121212',
+                        'hermes-orange': '#EB5E28',
+                        'platinum': '#E0E0E0',
+                        'platinum-dim': '#9A9A9A',
+                    },
+                    fontFamily: {
+                        'serif': ['Italiana', 'serif'],
+                        'sans': ['Manrope', 'sans-serif'],
+                    },
+                    animation: {
+                        'gradient-x': 'gradient-x 15s ease infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 1s ease-out forwards',
+                        'marquee': 'marquee 25s linear infinite',
+                    },
+                    keyframes: {
+                        'gradient-x': {
+                            '0%, 100%': { 'background-size': '200% 200%', 'background-position': 'left center' },
+                            '50%': { 'background-size': '200% 200%', 'background-position': 'right center' },
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'fadeInUp': {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        'marquee': {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Settings */
+        html { scroll-behavior: smooth; }
+        body { 
+            -ms-overflow-style: none; 
+            scrollbar-width: none; 
+            background-color: #050505;
+            -webkit-font-smoothing: antialiased;
+        }
+        body::-webkit-scrollbar { display: none; }
+
+        ::selection { background-color: #EB5E28; color: #000; }
+
+        /* Live Background Setup */
+        .live-bg {
+            background: radial-gradient(circle at 50% 50%, rgba(20, 20, 20, 0) 0%, #050505 100%),
+                        linear-gradient(125deg, #050505 0%, #1a1a1a 40%, #0f0f0f 70%, #050505 100%);
+            background-size: 300% 300%;
+            animation: gradient-x 20s ease infinite;
+        }
+
+        /* Subtle Glow Orb */
+        .glow-orb {
+            position: fixed;
+            top: -10%;
+            right: -10%;
+            width: 80vw;
+            height: 80vw;
+            background: radial-gradient(circle, rgba(235, 94, 40, 0.08) 0%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(80px);
+        }
+
+        /* Navigation Glass Effect */
+        .nav-glass {
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Mobile Menu Transition */
+        #mobile-menu {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+        }
+
+        /* Image Hover Styles */
+        .img-reveal {
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease;
+            will-change: transform;
+        }
+        .group:hover .img-reveal {
+            transform: scale(1.05);
+            filter: contrast(110%);
+        }
+
+        /* Marquee Optimization */
+        .marquee-container {
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+    </style>
+</head>
+
+<body class="live-bg text-platinum font-sans min-h-[100dvh] relative overflow-x-hidden">
+
+    <div class="glow-orb animate-pulse"></div>
+
+    <nav class="fixed top-0 w-full z-50 nav-glass px-6 py-4 md:px-12 md:py-6 flex justify-between items-center">
+        <a href="#" class="flex items-center gap-3 group relative z-50">
+            <div class="w-8 h-8 border border-white/20 flex items-center justify-center rounded-full group-hover:border-hermes-orange transition-colors bg-void">
+                <span class="font-serif font-bold text-lg text-hermes-orange">M</span>
+            </div>
+            <span class="text-lg md:text-xl font-serif tracking-widest text-white group-hover:text-hermes-orange transition-colors">MILLER & CO.</span>
+        </a>
+
+        <div class="hidden md:flex items-center gap-12 text-xs font-bold tracking-[0.2em] uppercase">
+            <a href="#about" class="hover:text-hermes-orange transition-colors text-platinum-dim relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-[1px] after:bg-hermes-orange after:transition-all hover:after:w-full">About</a>
+            <a href="#vault" class="hover:text-hermes-orange transition-colors text-white relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-[1px] after:bg-hermes-orange after:transition-all hover:after:w-full">The Vault</a>
+            <a href="#journal" class="hover:text-hermes-orange transition-colors text-platinum-dim relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-[1px] after:bg-hermes-orange after:transition-all hover:after:w-full">Journal</a>
+        </div>
+
+        <div class="flex items-center gap-4 md:gap-6 relative z-50">
+            <button class="hidden md:flex items-center gap-2 hover:text-hermes-orange transition-colors">
+                <span class="text-xs tracking-widest uppercase">Search</span>
+                <i class="fas fa-search text-xs"></i>
+            </button>
+            <button class="border border-white/20 px-4 py-2 md:px-6 md:py-2 rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300 text-[10px] md:text-xs tracking-widest uppercase flex items-center gap-2 bg-black/20 backdrop-blur-sm">
+                Bag <span class="bg-hermes-orange text-black w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold">0</span>
+            </button>
+            
+            <button id="mobile-toggle" class="md:hidden text-white text-xl w-8 h-8 flex items-center justify-center focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 bg-void z-40 transform translate-x-full flex flex-col justify-center items-center opacity-0">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')] opacity-20 pointer-events-none"></div>
+        <div class="flex flex-col gap-8 text-center">
+            <a href="#about" class="mobile-link text-3xl font-serif text-white hover:text-hermes-orange transition-colors" onclick="toggleMenu()">About</a>
+            <a href="#vault" class="mobile-link text-3xl font-serif text-white hover:text-hermes-orange transition-colors" onclick="toggleMenu()">The Vault</a>
+            <a href="#journal" class="mobile-link text-3xl font-serif text-white hover:text-hermes-orange transition-colors" onclick="toggleMenu()">Journal</a>
+            <a href="#" class="mobile-link text-3xl font-serif text-white hover:text-hermes-orange transition-colors" onclick="toggleMenu()">Search</a>
+        </div>
+        <div class="absolute bottom-12 text-[10px] tracking-[0.2em] text-platinum-dim">
+            TOKYO — PARIS — NY
+        </div>
+    </div>
+
+    <header class="relative min-h-[100dvh] flex items-center pt-28 pb-12 px-6 md:px-12 max-w-[1600px] mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 w-full h-full items-center relative z-10">
+            
+            <div class="lg:col-span-5 relative order-1 animate-fade-in-up flex flex-col justify-center" style="animation-delay: 0.1s;">
+                <div class="flex flex-wrap gap-4 md:gap-8 text-[9px] md:text-[10px] text-hermes-orange tracking-[0.2em] font-bold mb-6 border-l border-white/10 pl-4">
+                    <span>EST. 2025</span>
+                    <span>ARCHIVAL GOODS</span>
+                </div>
+
+                <h1 class="text-5xl md:text-6xl lg:text-8xl font-serif text-white leading-[0.95] mb-6 md:mb-8">
+                    RARE <br> 
+                    <span class="italic text-platinum-dim">FORMS.</span>
+                </h1>
+                
+                <p class="text-platinum-dim text-sm md:text-base leading-7 max-w-md mb-8 md:mb-10 font-light border-l border-white/10 pl-4">
+                    A digital archive of forgotten luxury. We curate items that exist outside of the timeline. Leather, silver, and silence.
+                </p>
+
+                <div class="flex items-center gap-6">
+                    <a href="#vault" class="bg-hermes-orange text-black px-8 py-4 md:py-3 font-bold text-xs tracking-[0.2em] uppercase hover:bg-white transition-colors duration-300 w-auto text-center">
+                        Enter Vault
+                    </a>
+                    <a href="#" class="text-xs tracking-[0.2em] uppercase text-white border-b border-transparent hover:border-hermes-orange pb-1 transition-all">
+                        Manifesto
+                    </a>
+                </div>
+            </div>
+
+            <div class="lg:col-span-6 lg:col-start-7 order-2 h-[50vh] md:h-[75vh] relative group animate-fade-in-up mt-8 lg:mt-0" style="animation-delay: 0.3s;">
+                <div class="absolute -top-6 -right-6 md:-top-10 md:-right-10 w-24 h-24 md:w-32 md:h-32 border border-white/10 rounded-full animate-float opacity-50 z-0"></div>
+                <div class="absolute -bottom-3 -left-3 md:-bottom-5 md:-left-5 w-full h-full border border-hermes-orange/30 z-0 translate-x-2 translate-y-2 md:translate-x-4 md:translate-y-4 transition-transform duration-500 group-hover:translate-x-6 group-hover:translate-y-6"></div>
+
+                <div class="w-full h-full overflow-hidden relative z-10 bg-charcoal">
+                    <img src="https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bGVhdGhlciUyMGphY2tldHN8ZW58MHx8MHx8fDA%3D&ixlib=rb-4.1.0&q=60&w=3000" 
+                         alt="Miller Archive Hero" 
+                         class="w-full h-full object-cover opacity-90 img-reveal grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700">
+                    
+                    <div class="absolute bottom-0 left-0 p-6 bg-gradient-to-t from-black/90 to-transparent w-full">
+                        <p class="text-hermes-orange text-[10px] md:text-xs font-bold tracking-widest mb-1">FEATURED</p>
+                        <p class="text-xl md:text-2xl font-serif italic text-white">The '89 Bomber Reissue</p>
+                    </div>
+                </div>
+
+                <div class="absolute top-4 left-4 md:top-8 md:-left-12 bg-black/80 backdrop-blur-md p-3 md:p-4 border border-white/10 text-center z-20">
+                    <p class="text-xl md:text-2xl font-serif text-white">04</p>
+                    <p class="text-[8px] md:text-[10px] text-platinum-dim uppercase tracking-widest mt-1">Units Left</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="py-4 border-y border-white/5 bg-charcoal/30 overflow-hidden relative marquee-container">
+        <div class="flex whitespace-nowrap gap-16 animate-marquee">
+            <span class="text-xs md:text-sm font-serif italic text-platinum-dim opacity-50">AUTHENTICITY GUARANTEED</span>
+            <span class="text-xs md:text-sm text-hermes-orange opacity-50">•</span>
+            <span class="text-xs md:text-sm font-serif italic text-platinum-dim opacity-50">WORLDWIDE SECURE SHIPPING</span>
+            <span class="text-xs md:text-sm text-hermes-orange opacity-50">•</span>
+            <span class="text-xs md:text-sm font-serif italic text-platinum-dim opacity-50">ARCHIVE EST 2025</span>
+            <span class="text-xs md:text-sm text-hermes-orange opacity-50">•</span>
+            <span class="text-xs md:text-sm font-serif italic text-platinum-dim opacity-50">AUTHENTICITY GUARANTEED</span>
+            <span class="text-xs md:text-sm text-hermes-orange opacity-50">•</span>
+            <span class="text-xs md:text-sm font-serif italic text-platinum-dim opacity-50">WORLDWIDE SECURE SHIPPING</span>
+            <span class="text-xs md:text-sm text-hermes-orange opacity-50">•</span>
+            <span class="text-xs md:text-sm font-serif italic text-platinum-dim opacity-50">ARCHIVE EST 2025</span>
+            <span class="text-xs md:text-sm text-hermes-orange opacity-50">•</span>
+             <span class="text-xs md:text-sm font-serif italic text-platinum-dim opacity-50">AUTHENTICITY GUARANTEED</span>
+            <span class="text-xs md:text-sm text-hermes-orange opacity-50">•</span>
+            <span class="text-xs md:text-sm font-serif italic text-platinum-dim opacity-50">WORLDWIDE SECURE SHIPPING</span>
+            <span class="text-xs md:text-sm text-hermes-orange opacity-50">•</span>
+            <span class="text-xs md:text-sm font-serif italic text-platinum-dim opacity-50">ARCHIVE EST 2025</span>
+            <span class="text-xs md:text-sm text-hermes-orange opacity-50">•</span>
+        </div>
+    </div>
+
+    <section id="vault" class="py-20 md:py-32 px-6 md:px-12 max-w-[1600px] mx-auto">
+        
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-20 gap-6">
+            <div>
+                <h2 class="text-3xl md:text-5xl font-serif text-white mb-3">Current Rotation</h2>
+                <div class="h-1 w-12 bg-hermes-orange"></div>
+            </div>
+            <div class="flex flex-wrap gap-4 text-[10px] md:text-xs font-bold tracking-widest uppercase">
+                <button class="text-hermes-orange border-b border-hermes-orange pb-1">All</button>
+                <button class="text-platinum-dim hover:text-white transition-colors pb-1">Outerwear</button>
+                <button class="text-platinum-dim hover:text-white transition-colors pb-1">Accessories</button>
+                <button class="text-platinum-dim hover:text-white transition-colors pb-1">Objets d'Art</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16 md:gap-y-24">
+
+            <div class="group cursor-pointer">
+                <div class="relative aspect-[3/4] overflow-hidden bg-charcoal mb-6 border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1559551409-dadc959f76b8?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover img-reveal opacity-80 group-hover:opacity-100">
+                    <div class="absolute top-4 right-4 bg-white text-black text-[10px] font-bold px-3 py-1 uppercase tracking-widest">New</div>
+                </div>
+                <div class="flex justify-between items-start border-b border-white/10 pb-4">
+                    <div>
+                        <h3 class="text-lg md:text-xl font-serif text-white group-hover:text-hermes-orange transition-colors">Distressed Rider</h3>
+                        <p class="text-[10px] md:text-xs text-platinum-dim mt-1 uppercase tracking-widest">Lambskin / size M</p>
+                    </div>
+                    <p class="font-serif text-lg text-white">$1,200</p>
+                </div>
+            </div>
+
+            <div class="group cursor-pointer lg:translate-y-16">
+                <div class="relative aspect-[3/4] overflow-hidden bg-charcoal mb-6 border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover img-reveal opacity-80 group-hover:opacity-100 grayscale hover:grayscale-0 transition-all">
+                </div>
+                <div class="flex justify-between items-start border-b border-white/10 pb-4">
+                    <div>
+                        <h3 class="text-lg md:text-xl font-serif text-white group-hover:text-hermes-orange transition-colors">Sterling Chain</h3>
+                        <p class="text-[10px] md:text-xs text-platinum-dim mt-1 uppercase tracking-widest">.925 Silver / 22"</p>
+                    </div>
+                    <p class="font-serif text-lg text-white">$450</p>
+                </div>
+            </div>
+
+            <div class="group cursor-pointer">
+                <div class="relative aspect-[3/4] overflow-hidden bg-charcoal mb-6 border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover img-reveal opacity-80 group-hover:opacity-100">
+                    <div class="absolute bottom-0 left-0 w-full bg-hermes-orange/90 text-black text-center py-3 md:py-2 text-[10px] md:text-xs font-bold uppercase tracking-widest translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                        View Details
+                    </div>
+                </div>
+                <div class="flex justify-between items-start border-b border-white/10 pb-4">
+                    <div>
+                        <h3 class="text-lg md:text-xl font-serif text-white group-hover:text-hermes-orange transition-colors">Artisan Tote</h3>
+                        <p class="text-[10px] md:text-xs text-platinum-dim mt-1 uppercase tracking-widest">Heavy Canvas</p>
+                    </div>
+                    <p class="font-serif text-lg text-white">$280</p>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="mt-20 md:mt-32 flex justify-center">
+            <button class="group relative px-10 py-4 border border-white/20 overflow-hidden w-full md:w-auto">
+                <div class="absolute inset-0 w-0 bg-white transition-all duration-[250ms] ease-out group-hover:w-full opacity-100"></div>
+                <span class="relative text-xs font-bold uppercase tracking-[0.25em] text-white group-hover:text-black transition-colors z-10 block text-center">Load Archive</span>
+            </button>
+        </div>
+
+    </section>
+
+    <section class="py-20 md:py-24 bg-gradient-to-b from-void to-charcoal border-t border-white/5 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-full md:w-1/2 h-full bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')] opacity-10"></div>
+        
+        <div class="max-w-4xl mx-auto text-center px-6 relative z-10">
+            <i class="fas fa-fingerprint text-3xl md:text-4xl text-hermes-orange mb-6 md:mb-8 opacity-80"></i>
+            <h2 class="text-2xl md:text-5xl font-serif italic text-white mb-6">"Permanence is the only luxury."</h2>
+            <p class="text-platinum-dim text-sm leading-relaxed max-w-xl mx-auto">
+                In an era of digital decay, Miller & Co stands for physical weight. Every item in the vault is verified, restored, and preserved.
+            </p>
+        </div>
+    </section>
+
+    <footer class="bg-black pt-16 md:pt-20 pb-12 px-6 border-t border-white/10">
+        <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left">
+            
+            <div class="md:col-span-2 flex flex-col items-center md:items-start">
+                <span class="text-xl md:text-2xl font-serif text-white tracking-widest">MILLER & CO.</span>
+                <p class="mt-6 text-platinum-dim text-[10px] md:text-xs leading-6 max-w-xs">
+                    Tokyo / New York / Paris<br>
+                    Licensed Reseller #89921-X<br>
+                    Secure Vault Access Only
+                </p>
+            </div>
+
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-6">Directory</h4>
+                <ul class="space-y-4 text-[10px] md:text-xs text-platinum-dim uppercase tracking-wider">
+                    <li><a href="#" class="hover:text-hermes-orange transition-colors">Shop All</a></li>
+                    <li><a href="#" class="hover:text-hermes-orange transition-colors">New Arrivals</a></li>
+                    <li><a href="#" class="hover:text-hermes-orange transition-colors">Consignment</a></li>
+                    <li><a href="#" class="hover:text-hermes-orange transition-colors">Vault Status</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-6">Newsletter</h4>
+                <div class="flex border-b border-white/20 pb-2">
+                    <input type="email" placeholder="ENTER EMAIL" class="bg-transparent text-white placeholder-white/30 text-xs w-full focus:outline-none">
+                    <button class="text-hermes-orange hover:text-white transition-colors p-2"><i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-[1600px] mx-auto mt-16 md:mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[9px] md:text-[10px] text-gray-600 uppercase tracking-widest gap-4 md:gap-0">
+            <p>&copy; 2025 MILLER & COMPANY.</p>
+            <div class="flex gap-6">
+                <span>Privacy Policy</span>
+                <span>Terms of Service</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const btn = document.getElementById('mobile-toggle');
+        const menu = document.getElementById('mobile-menu');
+        const icon = btn.querySelector('i');
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            
+            if (isMenuOpen) {
+                // Open
+                menu.classList.remove('translate-x-full', 'opacity-0');
+                menu.classList.add('translate-x-0', 'opacity-100');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                // Close
+                menu.classList.remove('translate-x-0', 'opacity-100');
+                menu.classList.add('translate-x-full', 'opacity-0');
+                document.body.style.overflow = ''; // Allow scrolling
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+
+        btn.addEventListener('click', toggleMenu);
+    </script>
+
+</body>
+</html>
